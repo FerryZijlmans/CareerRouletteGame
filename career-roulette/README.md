@@ -107,4 +107,7 @@ When contributing:
 
 ## License
 
-Add your preferred license (for example MIT) in a `LICENSE` file if this repository will be distributed externally.
+This project is licensed under the MIT License.
+
+See [LICENSE](LICENSE) for full text.
+
