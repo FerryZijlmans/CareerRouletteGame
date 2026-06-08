@@ -1,0 +1,93 @@
+<div class="spin-screen">
+  <!-- Top bar -->
+  <div class="top-bar">
+    <div class="player-info">
+      <span class="player-name">{{ state().playerName }}</span>
+      <button class="horizon-toggle-btn" (click)="toggleTimeHorizon()">
+        @if (state().timeHorizon === '1yr') { 🎯 1 jaar } @else { 🔭 3 jaar }
+      </button>
+    </div>
+    <div class="spin-counter">
+      <span class="spin-label">Spin</span>
+      <span class="spin-number">{{ state().currentSpin + 1 }}</span>
+      <span class="spin-divider">/</span>
+      <span class="spin-total">{{ state().totalSpins }}</span>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" [style.width.%]="progressPercent"></div>
+  </div>
+
+  <!-- Power-ups row -->
+  @if (state().crossBlJokerAvailable || state().mysterySpinAvailable) {
+    <div class="powerups-row">
+      @if (state().crossBlJokerAvailable) {
+        <button class="powerup-btn joker" (click)="activateCrossBlJoker()">
+          🃏 Cross-BL Joker
+        </button>
+      }
+      @if (state().mysterySpinAvailable) {
+        <button class="powerup-btn mystery" (click)="activateMystery()">
+          👁️ Mystery Spin
+        </button>
+      }
+      @if (isDeepDive()) {
+        <span class="powerup-indicator deep-dive">🔍 Deep Dive!</span>
+      }
+    </div>
+  } @else if (isDeepDive()) {
+    <div class="powerups-row">
+      <span class="powerup-indicator deep-dive">🔍 Deep Dive!</span>
+    </div>
+  }
+
+  <!-- Card area -->
+  <div class="card-area">
+    @if (currentRole()) {
+      <div [@cardSlide]="animationTrigger()">
+        <app-role-card
+          [role]="currentRole()!"
+          [isDeepDive]="isDeepDive()"
+          [isMystery]="isMystery()"
+          [timeHorizon]="state().timeHorizon"
+        />
+      </div>
+    }
+  </div>
+
+  <!-- Choice buttons or motivation -->
+  @if (!showMotivation()) {
+    <div class="choice-buttons">
+      <button class="choice-btn yes-btn" (click)="selectChoice('yes')">
+        ✅ Aan
+      </button>
+      <button class="choice-btn maybe-btn" (click)="selectChoice('maybe')">
+        🤔 Misschien
+      </button>
+      <button class="choice-btn no-btn" (click)="selectChoice('no')">
+        ❌ Niet aan
+      </button>
+    </div>
+  } @else {
+    <div class="motivation-panel">
+      <p class="micro-question">{{ microQuestion }}</p>
+      <textarea
+        class="motivation-input"
+        [placeholder]="'Schrijf een korte notitie... (optioneel)'"
+        [ngModel]="motivation()"
+        (ngModelChange)="motivation.set($event)"
+        rows="2"
+        maxlength="200"
+      ></textarea>
+      <button class="next-btn" (click)="submitChoice()">
+        @if (state().currentSpin + 1 >= state().totalSpins) {
+          Bekijk je Profiel 🎯
+        } @else {
+          Volgende →
+        }
+      </button>
+    </div>
+  }
+</div>

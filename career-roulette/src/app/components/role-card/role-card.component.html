@@ -1,0 +1,94 @@
+@if (role) {
+  <div class="card-scene">
+    @if (!isDeepDive) {
+      <!-- Front face -->
+      <div class="card card-front" @fadeSlide>
+        <div class="card-header">
+          <span class="bl-badge" [class]="blColorClass">{{ role.businessLine }}</span>
+          <span class="grade-badge">{{ role.grade }}</span>
+          @if (isMystery) {
+            <span class="mystery-badge">👁️ Mystery</span>
+          }
+        </div>
+
+        <div class="card-body">
+          <div class="role-function">{{ role.function }}</div>
+          <h2 class="role-name">
+            @if (isMystery) {
+              <span class="mystery-name">???</span>
+            } @else {
+              {{ role.name }}
+            }
+          </h2>
+          <p class="role-tagline">{{ role.tagline }}</p>
+
+          <div class="activities">
+            <div class="activities-label">Activiteiten</div>
+            <ul class="activities-list">
+              @for (activity of role.activities; track activity) {
+                <li>{{ activity }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="time-horizon-badge">
+            @if (timeHorizon === '1yr') { 🎯 1 jaar } @else { 🔭 3 jaar }
+          </span>
+          @for (tag of role.tags.slice(0, 3); track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+      </div>
+    } @else {
+      <!-- Back face (Deep Dive) -->
+      <div class="card card-back" @fadeSlide>
+        <div class="card-back-header">
+          <span class="deep-dive-label">🔍 Deep Dive</span>
+          <h2 class="role-name-back">{{ role.name }}</h2>
+        </div>
+
+        <div class="card-back-body">
+          <p class="role-description">{{ role.description }}</p>
+
+          @if (role.localCompetencies.length) {
+            <div class="back-section">
+              <h4 class="section-title">Lokale Competenties</h4>
+              <div class="competency-list">
+                @for (comp of role.localCompetencies; track comp.name) {
+                  <div class="competency-item">
+                    <div class="comp-header">
+                      <span class="comp-name">{{ comp.name }}</span>
+                      <span class="level-badge level-{{ comp.level | lowercase }}">{{ comp.level }}</span>
+                    </div>
+                    <p class="comp-desc">{{ comp.description }}</p>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          @if (role.knowledgeMap.length) {
+            <div class="back-section">
+              <h4 class="section-title">Kenniskaart</h4>
+              @for (km of role.knowledgeMap; track km.domain) {
+                <div class="knowledge-item">
+                  <div class="km-header">
+                    <span class="km-domain">{{ km.domain }}</span>
+                    <span class="level-badge level-{{ km.level | lowercase }}">{{ km.level }}</span>
+                  </div>
+                  <div class="km-topics">
+                    @for (topic of km.topics; track topic) {
+                      <span class="topic-chip">{{ topic }}</span>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

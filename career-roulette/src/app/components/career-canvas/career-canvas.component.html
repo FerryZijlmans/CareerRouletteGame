@@ -1,0 +1,166 @@
+<div class="canvas-screen">
+  <div class="canvas-controls no-print">
+    <a routerLink="/summary" class="back-btn">← Terug naar Profiel</a>
+    <button class="print-btn" (click)="printCanvas()">🖨️ Print / Export</button>
+  </div>
+
+  @if (canvas()) {
+    <div class="canvas-page">
+      <!-- Canvas header -->
+      <div class="canvas-header">
+        <div class="canvas-title-block">
+          <h1 class="canvas-title">Career Path Canvas</h1>
+          <p class="canvas-subtitle">Career Roulette — Persoonlijk Groeiplan</p>
+        </div>
+        <div class="canvas-meta">
+          <div class="meta-item">
+            <span class="meta-label">Naam</span>
+            <span class="meta-value">{{ state().playerName }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Datum</span>
+            <span class="meta-value">{{ today }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Horizon</span>
+            <span class="meta-value">{{ state().timeHorizon === '1yr' ? '1 jaar' : '3 jaar' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canvas grid -->
+      <div class="canvas-grid">
+        <!-- Target role -->
+        <div class="canvas-section target-role-section">
+          <div class="section-icon">🎯</div>
+          <h3 class="section-label">Doelrol <span class="section-hint">(12–36 mnd)</span></h3>
+          <input
+            class="canvas-editable large"
+            type="text"
+            [ngModel]="targetRole()"
+            (ngModelChange)="targetRole.set($event)"
+            placeholder="Bijv. Principal Engineer – Azure"
+          />
+        </div>
+
+        <!-- Intermediate role -->
+        <div class="canvas-section intermediate-section">
+          <div class="section-icon">⏩</div>
+          <h3 class="section-label">Tussenrol <span class="section-hint">(6–12 mnd)</span></h3>
+          <input
+            class="canvas-editable large"
+            type="text"
+            [ngModel]="intermediateRole()"
+            (ngModelChange)="intermediateRole.set($event)"
+            placeholder="Bijv. Senior Engineer"
+          />
+        </div>
+
+        <!-- Top competencies -->
+        <div class="canvas-section competencies-section">
+          <div class="section-icon">💪</div>
+          <h3 class="section-label">Top 3 te ontwikkelen competenties</h3>
+          <div class="chips-container">
+            @for (comp of topCompetencies(); track comp; let i = $index) {
+              <div class="editable-chip competency-chip">
+                <span>{{ comp }}</span>
+                <button class="chip-remove no-print" (click)="removeCompetency(i)">×</button>
+              </div>
+            }
+          </div>
+          @if (topCompetencies().length < 5) {
+            <div class="add-chip-row no-print">
+              <input
+                class="chip-input"
+                type="text"
+                [ngModel]="newCompetency()"
+                (ngModelChange)="newCompetency.set($event)"
+                placeholder="Voeg competentie toe..."
+                (keydown.enter)="addCompetency()"
+              />
+              <button class="add-btn" (click)="addCompetency()">+</button>
+            </div>
+          }
+        </div>
+
+        <!-- Knowledge keywords -->
+        <div class="canvas-section knowledge-section">
+          <div class="section-icon">🧠</div>
+          <h3 class="section-label">Top 5 kenniskaart-keywords</h3>
+          <div class="chips-container">
+            @for (kw of knowledgeKeywords(); track kw; let i = $index) {
+              <div class="editable-chip knowledge-chip">
+                <span>{{ kw }}</span>
+                <button class="chip-remove no-print" (click)="removeKeyword(i)">×</button>
+              </div>
+            }
+          </div>
+          @if (knowledgeKeywords().length < 8) {
+            <div class="add-chip-row no-print">
+              <input
+                class="chip-input"
+                type="text"
+                [ngModel]="newKeyword()"
+                (ngModelChange)="newKeyword.set($event)"
+                placeholder="Voeg keyword toe..."
+                (keydown.enter)="addKeyword()"
+              />
+              <button class="add-btn" (click)="addKeyword()">+</button>
+            </div>
+          }
+        </div>
+
+        <!-- First actions -->
+        <div class="canvas-section actions-section">
+          <div class="section-icon">⚡</div>
+          <h3 class="section-label">Eerste 2 acties</h3>
+          <div class="actions-list">
+            <div class="action-item">
+              <span class="action-number">1</span>
+              <input
+                class="canvas-editable"
+                type="text"
+                [ngModel]="firstAction1()"
+                (ngModelChange)="firstAction1.set($event)"
+                placeholder="Eerste actie..."
+              />
+            </div>
+            <div class="action-item">
+              <span class="action-number">2</span>
+              <input
+                class="canvas-editable"
+                type="text"
+                [ngModel]="firstAction2()"
+                (ngModelChange)="firstAction2.set($event)"
+                placeholder="Tweede actie..."
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Signature block -->
+        <div class="canvas-section signature-section">
+          <div class="section-icon">✍️</div>
+          <h3 class="section-label">Commitment</h3>
+          <p class="commitment-text">
+            "Ik zet me in om mijn doelrol te bereiken door bewust te werken aan mijn competenties en kennis."
+          </p>
+          <div class="signature-line">
+            <div class="sig-field"><div class="sig-underline"></div><span>Handtekening</span></div>
+            <div class="sig-field"><div class="sig-underline"></div><span>Datum review</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="canvas-footer">
+        <span>Career Roulette — Microsoft Career Game</span>
+        <span>Gegenereerd op {{ today }}</span>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-canvas">
+      <p>Geen canvas beschikbaar.</p>
+      <a routerLink="/" class="back-btn">Terug naar Start</a>
+    </div>
+  }
+</div>

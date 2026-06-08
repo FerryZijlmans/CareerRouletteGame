@@ -1,0 +1,122 @@
+<div class="start-screen">
+  <div class="bg-particles">
+    @for (p of [1,2,3,4,5,6,7,8,9,10,11,12]; track p) {
+      <span class="particle"></span>
+    }
+  </div>
+
+  <div class="content">
+    <div class="hero">
+      <div class="logo-icon">🎰</div>
+      <h1 class="title">Career Roulette</h1>
+      <p class="subtitle">Ontdek je ideale carrièrepad bij Sogeti Microsoft. Right here, Right now!</p>
+    </div>
+
+    @if (loading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Configuratie laden...</p>
+      </div>
+    } @else if (error()) {
+      <div class="error-state">
+        <span class="error-icon">⚠️</span>
+        <p>{{ error() }}</p>
+      </div>
+    } @else {
+      <div class="setup-card">
+        <div class="form-group">
+          <label for="playerName" class="form-label">Jouw naam</label>
+          <input
+            id="playerName"
+            type="text"
+            class="form-input"
+            placeholder="Voer je naam in..."
+            [ngModel]="playerName()"
+            (ngModelChange)="playerName.set($event)"
+            (keydown.enter)="canStart && startGame()"
+            maxlength="50"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Jouw huidige grade</label>
+          <div class="grade-grid">
+            @for (g of grades; track g.code) {
+              <button
+                class="grade-btn"
+                [class.active]="currentGrade() === g.code"
+                (click)="setGrade(g.code)"
+              >
+                <span class="grade-code">{{ g.code }}</span>
+                <span class="grade-label">{{ g.label.split('–')[1]?.trim() }}</span>
+              </button>
+            }
+          </div>
+          <p class="grade-hint">Je krijgt alleen rollen te zien die hoger zijn dan jouw huidige grade.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tijdshorizon</label>
+          <div class="horizon-toggle">
+            <button
+              class="horizon-btn"
+              [class.active]="timeHorizon() === '1yr'"
+              (click)="setTimeHorizon('1yr')"
+            >
+              <span class="horizon-icon">🎯</span>
+              <span class="horizon-label">Over 1 jaar</span>
+            </button>
+            <button
+              class="horizon-btn"
+              [class.active]="timeHorizon() === '3yr'"
+              (click)="setTimeHorizon('3yr')"
+            >
+              <span class="horizon-icon">🔭</span>
+              <span class="horizon-label">Over 3 jaar</span>
+            </button>
+          </div>
+        </div>
+
+        <button
+          class="start-btn"
+          [disabled]="!canStart"
+          (click)="startGame()"
+        >
+          <span class="btn-icon">🎰</span>
+          Start Roulette!
+        </button>
+      </div>
+
+      <div class="mechanic-info">
+        <h3>Hoe werkt het?</h3>
+        <div class="choices-preview">
+          <div class="choice-item yes">
+            <span class="choice-emoji">✅</span>
+            <div>
+              <strong>Aan</strong>
+              <p>Deze rol trekt je aan</p>
+            </div>
+          </div>
+          <div class="choice-item maybe">
+            <span class="choice-emoji">🤔</span>
+            <div>
+              <strong>Misschien</strong>
+              <p>Interessant, maar twijfel</p>
+            </div>
+          </div>
+          <div class="choice-item no">
+            <span class="choice-emoji">❌</span>
+            <div>
+              <strong>Niet aan</strong>
+              <p>Niet jouw ding</p>
+            </div>
+          </div>
+        </div>
+        <p class="info-footer">
+          Na 8–12 spins ontvang je een <strong>Interest Profile</strong> en een
+          <strong>Career Path Canvas</strong> als gespreksstartersnoot.
+        </p>
+      </div>
+    }
+  </div>
+</div>

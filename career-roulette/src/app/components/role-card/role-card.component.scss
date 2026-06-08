@@ -1,0 +1,282 @@
+.card-scene {
+  width: 100%;
+}
+
+.card {
+  width: 100%;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--border);
+}
+
+/* Front face */
+.card-front {
+  background: var(--bg-card);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+/* Business line badge colors */
+.bl-badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.bl-azure { background: #dbeafe; color: #1d4ed8; }
+.bl-m365 { background: #dcfce7; color: #15803d; }
+.bl-security { background: #fee2e2; color: #dc2626; }
+.bl-data-ai { background: #e0e7ff; color: #4338ca; }
+.bl-devtools { background: #fef3c7; color: #d97706; }
+.bl-gaming { background: #f3e8ff; color: #7c3aed; }
+.bl-default { background: #f1f5f9; color: #475569; }
+
+.grade-badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--grade-chip-bg);
+  color: #c7d2fe;
+}
+
+.mystery-badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #1c1917;
+  color: #fde68a;
+  margin-left: auto;
+}
+
+.card-body {
+  flex: 1;
+  padding: 1.5rem 1.25rem;
+}
+
+.role-function {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.role-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.mystery-name {
+  color: #94a3b8;
+  letter-spacing: 0.15em;
+}
+
+.role-tagline {
+  font-style: italic;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.activities-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+
+.activities-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: #334155;
+    line-height: 1.4;
+
+    &::before {
+      content: '→';
+      color: var(--accent-primary);
+      flex-shrink: 0;
+      margin-top: 0.05em;
+    }
+  }
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.875rem 1.25rem;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.time-horizon-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6366f1;
+  background: #eef2ff;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  background: #f1f5f9;
+  color: #64748b;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+}
+
+/* Back face */
+.card-back {
+  background: linear-gradient(160deg, #1e1b4b, #312e81);
+  color: #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.card-back-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.deep-dive-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #818cf8;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.role-name-back {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.card-back-body {
+  flex: 1;
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.role-description {
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+}
+
+.back-section { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #818cf8;
+  margin-bottom: 0.25rem;
+}
+
+.competency-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.competency-item {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.625rem;
+  padding: 0.75rem;
+}
+
+.comp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.comp-name { font-size: 0.85rem; font-weight: 600; color: #e2e8f0; }
+
+.comp-desc { font-size: 0.78rem; color: #94a3b8; line-height: 1.4; }
+
+/* Level badges */
+.level-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.level-foundation { background: #1e3a5f; color: #93c5fd; }
+.level-developing { background: #064e3b; color: #6ee7b7; }
+.level-proficient { background: #1e1b4b; color: #a5b4fc; }
+.level-advanced { background: #4c1d95; color: #c4b5fd; }
+.level-expert { background: #7c1d1d; color: #fca5a5; }
+
+.knowledge-item {
+  margin-bottom: 0.75rem;
+}
+
+.km-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.km-domain { font-size: 0.82rem; font-weight: 600; color: #e2e8f0; }
+
+.km-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.topic-chip {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.5rem;
+  background: rgba(99, 102, 241, 0.2);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #a5b4fc;
+  border-radius: 999px;
+}

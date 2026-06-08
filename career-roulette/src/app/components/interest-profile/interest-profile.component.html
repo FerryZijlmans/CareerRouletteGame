@@ -1,0 +1,179 @@
+<div class="profile-screen">
+  @if (profile()) {
+    <div class="profile-content">
+      <!-- Header -->
+      <div class="profile-header">
+        <div class="header-main">
+          <h1 class="profile-title">Jouw Interest Profile 🎯</h1>
+          <div class="player-meta">
+            <span class="player-chip">{{ state().playerName }}</span>
+            <span class="horizon-chip">
+              @if (state().timeHorizon === '1yr') { 🎯 1 jaar } @else { 🔭 3 jaar }
+            </span>
+          </div>
+        </div>
+        <button class="facilitator-toggle" (click)="toggleFacilitatorView()">
+          📋 {{ facilitatorView() ? 'Verberg' : 'Facilitator View' }}
+        </button>
+      </div>
+
+      <!-- Yes roles -->
+      <div class="section">
+        <h2 class="section-header yes">✅ Top Aan-rollen</h2>
+        @if (profile()!.topYes.length > 0) {
+          <div class="record-cards">
+            @for (record of profile()!.topYes; track record.roleId) {
+              <div class="record-card yes">
+                <div class="record-name">{{ record.roleName }}</div>
+                @if (record.motivation) {
+                  <blockquote class="record-motivation">"{{ record.motivation }}"</blockquote>
+                }
+                <div class="record-meta">
+                  @if (record.wasDeepDive) { <span class="meta-badge">🔍 Deep Dive</span> }
+                  @if (record.wasMystery) { <span class="meta-badge">👁️ Mystery</span> }
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-state">Geen Aan-rollen geselecteerd</p>
+        }
+      </div>
+
+      <!-- Maybe roles -->
+      <div class="section">
+        <h2 class="section-header maybe">🤔 De Twijfellaag — Misschien</h2>
+        @if (profile()!.topMaybe.length > 0) {
+          <div class="record-cards">
+            @for (record of profile()!.topMaybe; track record.roleId) {
+              <div class="record-card maybe">
+                <div class="record-name">{{ record.roleName }}</div>
+                @if (record.motivation) {
+                  <blockquote class="record-motivation">"{{ record.motivation }}"</blockquote>
+                }
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-state">Geen Misschien-rollen geselecteerd</p>
+        }
+      </div>
+
+      <!-- No patterns -->
+      @if (profile()!.noPatterns.length > 0) {
+        <div class="section">
+          <h2 class="section-header no">❌ Wat je NIET wilt — Patronen</h2>
+          <div class="tags-cloud">
+            @for (pattern of profile()!.noPatterns; track pattern) {
+              <span class="theme-tag no-tag">{{ pattern }}</span>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Yes themes -->
+      @if (profile()!.yesThemes.length > 0) {
+        <div class="section">
+          <h2 class="section-header yes">🔥 Energie-thema's</h2>
+          <div class="tags-cloud">
+            @for (theme of profile()!.yesThemes; track theme) {
+              <span class="theme-tag yes-tag">{{ theme }}</span>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Growth paths -->
+      <div class="section">
+        <h2 class="section-header neutral">🚀 Groeipaden</h2>
+        <div class="paths-grid">
+          <div class="path-card vertical">
+            <div class="path-icon">⬆️</div>
+            <div class="path-label">Verticaal</div>
+            <div class="path-value">{{ profile()!.suggestedPaths.vertical }}</div>
+          </div>
+          <div class="path-card adjacent">
+            <div class="path-icon">↔️</div>
+            <div class="path-label">Aangrenzend</div>
+            <div class="path-value">{{ profile()!.suggestedPaths.adjacent }}</div>
+          </div>
+          <div class="path-card crossbl">
+            <div class="path-icon">🔀</div>
+            <div class="path-label">Cross-BL</div>
+            <div class="path-value">{{ profile()!.suggestedPaths.crossBL }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversation questions -->
+      <div class="section questions-section">
+        <h2 class="section-header neutral">💬 4 Gespreksvragen</h2>
+        <div class="questions-list">
+          @for (q of conversationQuestions; track q; let i = $index) {
+            <div class="question-item">
+              <span class="question-number">{{ i + 1 }}</span>
+              <p>{{ q }}</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Facilitator view -->
+      @if (facilitatorView()) {
+        <div class="section facilitator-section">
+          <h2 class="section-header facilitator">📋 Facilitator Tips</h2>
+          <div class="facilitator-tips">
+            <div class="tip">
+              <strong>Let op contradictie:</strong> Als iemand "management" als ❌ kiest maar ook "Engineering Manager" als ✅, open dan het gesprek over waarom. Dit kan een waardevolle blinde vlek onthullen.
+            </div>
+            <div class="tip">
+              <strong>Misschien = goud:</strong> De twijfellaag is vaak het meest informatief. Vraag door op de Misschien-rollen: Wat zou er anders moeten zijn?
+            </div>
+            <div class="tip">
+              <strong>Tijdshorizon:</strong> Als de tijdshorizon op 1 jaar staat, vraag dan: "Stel dat je 3 jaar had — welke Misschien wordt dan een Aan?"
+            </div>
+            <div class="tip">
+              <strong>Vervolgstappen:</strong> Sluit altijd af met één concrete actie: een gesprek, een zij-project, of een kennisgesprek met iemand in de doelrol.
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="profile-actions">
+        <div class="canvas-setup">
+          <h3>Maak je Career Canvas</h3>
+          <div class="canvas-inputs">
+            <input
+              class="canvas-input"
+              type="text"
+              placeholder="Doelrol (bijv. Principal Engineer – Azure)"
+              [value]="targetRole()"
+              (input)="targetRole.set($any($event.target).value)"
+            />
+            <input
+              class="canvas-input"
+              type="text"
+              placeholder="Tussenrol (bijv. Senior Engineer)"
+              [value]="intermediateRole()"
+              (input)="intermediateRole.set($any($event.target).value)"
+            />
+          </div>
+        </div>
+        <div class="action-buttons">
+          <button class="action-btn primary" (click)="goToCanvas()">
+            🗺️ Maak Career Canvas
+          </button>
+          <button class="action-btn secondary" (click)="playAgain()">
+            🔄 Opnieuw spelen
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-profile">
+      <p>Geen profiel beschikbaar.</p>
+      <a routerLink="/" class="action-btn primary">Terug naar Start</a>
+    </div>
+  }
+</div>
