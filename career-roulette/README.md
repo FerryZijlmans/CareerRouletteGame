@@ -1,59 +1,110 @@
-# CareerRoulette
+# Career Roulette
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+Career Roulette is a lightweight career-conversation game built with Angular.
+It helps users explore possible role directions by presenting role cards, collecting preferences, and generating a simple interest profile plus a career canvas.
 
-## Development server
+This repository is intended as a public demo/prototype for learning and experimentation.
 
-To start a local development server, run:
+## Purpose
 
-```bash
-ng serve
-```
+The goal of this project is to support structured growth conversations by making career exploration interactive:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. Users choose a current grade and time horizon.
+2. The app shows role cards and captures reactions (`yes`, `maybe`, `no`).
+3. The app summarizes themes and suggests potential growth paths.
+4. The app generates a practical career canvas with first actions.
 
-## Code scaffolding
+## Current Behavior Highlights
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. Random session length between 8 and 12 spins, capped by available unique cards.
+2. No duplicate role cards within the same game session.
+3. Grade filtering respects selected time horizon:
+	1. `1 year`: current grade or one grade higher.
+	2. `3 years`: current grade up to two grades higher.
+4. Deep-dive moments can occur multiple times based on configured interval.
 
-```bash
-ng generate component component-name
-```
+## Tech Stack
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Angular 21 (standalone components)
+2. TypeScript
+3. SCSS
+4. JSON-based role configuration
 
-```bash
-ng generate --help
-```
+## Project Structure (high level)
 
-## Building
+1. `src/app/components`: screens and UI building blocks
+2. `src/app/services`: game logic and config loading
+3. `src/app/models`: application data models
+4. `public/assets/config/career-config.json`: role and competency dataset
 
-To build the project run:
+## Getting Started
 
-```bash
-ng build
-```
+### Prerequisites
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. Node.js 20+ recommended (LTS preferred)
+2. npm
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### Install
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Run locally
 
-## Additional Resources
+```bash
+npm start
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Open `http://localhost:4200/` in your browser.
+
+### Build
+
+```bash
+npm run build
+```
+
+Build output is written to `dist/career-roulette`.
+
+### Test
+
+```bash
+npm test
+```
+
+## Configuration and Data
+
+Main configuration file:
+
+- `public/assets/config/career-config.json`
+
+It contains:
+
+1. Spin/deep-dive settings
+2. Grade definitions
+3. Role catalog
+4. Competencies and knowledge topics
+
+## Public Repository Notice
+
+This is a public repository. Do not commit confidential or proprietary business data, customer data, credentials, internal URLs, or sensitive architecture details.
+
+## Data Quality Disclaimer
+
+The configuration data in this repository is generated/demo content and may be incomplete, outdated, inconsistent, or incorrect.
+
+Treat it as sample input for prototyping only, not as a source of truth for HR, staffing, certification policy, or organizational decisions.
+
+## Contributing
+
+Contributions are welcome through issues and pull requests.
+
+When contributing:
+
+1. Keep sample data generic and non-sensitive.
+2. Prefer small, focused changes.
+3. Run build/tests before opening a PR.
+
+## License
+
+Add your preferred license (for example MIT) in a `LICENSE` file if this repository will be distributed externally.
