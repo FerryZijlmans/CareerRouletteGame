@@ -49,10 +49,16 @@ export class SpinScreenComponent implements OnInit {
   }
 
   private loadNextRole(): void {
-    const role = this.gameService.getNextRole();
+    const draw = this.gameService.getNextRole();
+    if (!draw) {
+      this.gameService.computeInterestProfile();
+      this.router.navigate(['/summary']);
+      return;
+    }
+
     this.isDeepDive.set(this.gameService.isDeepDive());
-    this.isMystery.set(this.gameService.isMystery());
-    this.currentRole.set(role);
+    this.isMystery.set(draw.isMystery);
+    this.currentRole.set(draw.role);
     this.selectedChoice.set(null);
     this.motivation.set('');
     this.showMotivation.set(false);
