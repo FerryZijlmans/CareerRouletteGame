@@ -37,12 +37,14 @@
   text-transform: uppercase;
 }
 
-.bl-azure { background: #dbeafe; color: #1d4ed8; }
-.bl-m365 { background: #dcfce7; color: #15803d; }
-.bl-security { background: #fee2e2; color: #dc2626; }
+.bl-cloud-infra { background: #dbeafe; color: #1d4ed8; }
+.bl-software { background: #fef3c7; color: #d97706; }
 .bl-data-ai { background: #e0e7ff; color: #4338ca; }
-.bl-devtools { background: #fef3c7; color: #d97706; }
-.bl-gaming { background: #f3e8ff; color: #7c3aed; }
+.bl-architecture { background: #f3e8ff; color: #7c3aed; }
+.bl-microsoft { background: #dcfce7; color: #15803d; }
+.bl-oracle { background: #ffedd5; color: #c2410c; }
+.bl-agile { background: #ccfbf1; color: #0f766e; }
+.bl-security { background: #fee2e2; color: #dc2626; }
 .bl-default { background: #f1f5f9; color: #475569; }
 
 .grade-badge {

@@ -32,12 +32,14 @@ export class RoleCardComponent {
 
   get blColorClass(): string {
     const map: Record<string, string> = {
-      'Azure': 'bl-azure',
-      'Microsoft 365': 'bl-m365',
-      'Security': 'bl-security',
+      'Cloud & Infra': 'bl-cloud-infra',
+      'Software Engineering': 'bl-software',
       'Data & AI': 'bl-data-ai',
-      'Developer Tools': 'bl-devtools',
-      'Gaming': 'bl-gaming',
+      'Enterprise Architecture': 'bl-architecture',
+      'Microsoft': 'bl-microsoft',
+      'Oracle': 'bl-oracle',
+      'Agile & Quality': 'bl-agile',
+      'Security': 'bl-security',
     };
     return map[this.role?.businessLine] ?? 'bl-default';
   }

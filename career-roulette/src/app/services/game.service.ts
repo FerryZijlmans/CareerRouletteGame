@@ -60,7 +60,7 @@ export class GameService {
     });
   }
 
-  getNextRole(): Role {
+  getNextRole(): { role: Role; isMystery: boolean } | null {
     const config = this.configService.getConfig();
     const allRoles = config.roles;
     const filteredRoles = this.getEligibleRolesFor(this.state().currentGrade, this.state().timeHorizon);
@@ -68,7 +68,7 @@ export class GameService {
     let pool = eligibleRoles.filter(r => !this.playedRoleIds.has(r.id));
 
     if (pool.length === 0) {
-      throw new Error('Geen unieke rollen meer beschikbaar voor deze sessie.');
+      return null;
     }
 
     if (this.crossBlJokerActive) {
@@ -87,19 +87,19 @@ export class GameService {
 
     const index = Math.floor(Math.random() * pool.length);
     const role = pool[index];
-    this.playedRoleIds.add(role.id);
 
+    const isMystery = this.mysteryActive;
     if (this.mysteryActive) {
       this.mysteryActive = false;
       this.state.update(s => ({ ...s, mysterySpinAvailable: false }));
     }
 
-    return role;
+    return { role, isMystery };
   }
 
   isDeepDive(): boolean {
     const { currentSpin, spinsUntilDeepDive } = this.state();
-    return currentSpin > 0 && currentSpin % spinsUntilDeepDive === 0;
+    return (currentSpin + 1) % spinsUntilDeepDive === 0;
   }
 
   isMystery(): boolean {
@@ -127,6 +127,7 @@ export class GameService {
     };
 
     const isLast = newSpin >= current.totalSpins;
+    this.playedRoleIds.add(roleId);
     this.state.update(s => ({
       ...s,
       currentSpin: newSpin,
@@ -199,8 +200,8 @@ export class GameService {
     };
 
     const profile: InterestProfile = {
-      topYes: yesRecords.slice(0, 3),
-      topMaybe: maybeRecords.slice(0, 3),
+      topYes: yesRecords,
+      topMaybe: maybeRecords,
       noPatterns,
       yesThemes,
       suggestedPaths,

@@ -19,7 +19,7 @@
 
       <!-- Yes roles -->
       <div class="section">
-        <h2 class="section-header yes">✅ Top Aan-rollen</h2>
+        <h2 class="section-header yes">✅ Al je Aan-rollen</h2>
         @if (profile()!.topYes.length > 0) {
           <div class="record-cards">
             @for (record of profile()!.topYes; track record.roleId) {
@@ -42,7 +42,7 @@
 
       <!-- Maybe roles -->
       <div class="section">
-        <h2 class="section-header maybe">🤔 De Twijfellaag — Misschien</h2>
+        <h2 class="section-header maybe">🤔 Al je Misschien-rollen</h2>
         @if (profile()!.topMaybe.length > 0) {
           <div class="record-cards">
             @for (record of profile()!.topMaybe; track record.roleId) {
